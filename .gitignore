@@ -1,0 +1,40 @@
+# ====================================================================
+# EasyTask - .gitignore
+# ====================================================================
+
+# Dependencias de paquetes
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Archivos de build y compilación
+dist/
+client/dist/
+
+# Variables de entorno y credenciales (usar .env.example)
+.env
+.env.local
+.env.*.local
+server/.env
+server/.env.local
+
+# Logs
+*.log
+err.log
+out.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Archivos de sistema y editores
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Archivos temporales de desarrollo
+code403.jsx
+tarjeta307.jsx
+simulados.txt
+user_prompts.txt
