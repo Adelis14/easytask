@@ -1,33 +1,88 @@
-import React, { useState } from 'react';
-import DashboardPage from './pages/DashboardPage';
-import Toast from './components/Toast';
+import React from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import Layout from './components/Layout';
+import LoginPage from './pages/LoginPage';
+import DashboardOverviewPage from './pages/DashboardOverviewPage';
+import CompromisosPage from './pages/CompromisosPage';
+import ReunionesPage from './pages/ReunionesPage';
+import MinutasPage from './pages/MinutasPage';
+import UsuariosPage from './pages/UsuariosPage';
+import ProyectosPage from './pages/ProyectosPage';
+import { isAuthenticated } from './services/api';
 
 /**
- * EasyTask - Aplicación Principal
- * Encapsula DashboardPage con un contenedor principal responsivo
- * con soporte dinámico para Modo Claro y Modo Oscuro, y notificaciones Toast.
+ * Componente Guardián de Rutas Privadas:
+ * Redirige a /login si no existe sesión activa
  */
+function ProtectedRoute({ children }) {
+  const location = useLocation();
+  const auth = isAuthenticated();
+
+  if (!auth) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <Layout>{children}</Layout>;
+}
+
 export default function App() {
-  const [toast, setToast] = useState(null);
-
-  const handleNotify = (message, type = 'success') => {
-    setToast({ message, type, id: Date.now() });
-  };
-
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#080c14] text-zinc-900 dark:text-[#f0f4ff] w-full flex flex-col font-sans antialiased transition-colors duration-200">
-      {/* Contenedor principal responsivo encapsulando DashboardPage */}
-      <DashboardPage onNotificar={handleNotify} />
+    <Routes>
+      {/* Ruta Pública: Autenticación / Registro */}
+      <Route path="/login" element={<LoginPage />} />
 
-      {/* Componente Toast para confirmación de acciones sin interrumpir el flujo */}
-      {toast && (
-        <Toast
-          key={toast.id}
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
-    </div>
+      {/* Rutas Privadas Protegidas */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <DashboardOverviewPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/compromisos"
+        element={
+          <ProtectedRoute>
+            <CompromisosPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/reuniones"
+        element={
+          <ProtectedRoute>
+            <ReunionesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/minutas"
+        element={
+          <ProtectedRoute>
+            <MinutasPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/usuarios"
+        element={
+          <ProtectedRoute>
+            <UsuariosPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/proyectos"
+        element={
+          <ProtectedRoute>
+            <ProyectosPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Redirección por defecto */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }

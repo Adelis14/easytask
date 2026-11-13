@@ -1,16 +1,26 @@
 // ====================================================================
-// Reglas de Dominio Estricto (UI-REQ-01 / UI-REQ-01.4)
-// Prohibido el uso de "Tareas" o "Proyectos"
-// Nomenclatura obligatoria: "Reuniones", "Minutas" y "Compromisos"
+// Sistema de Tareas basado en Semáforos:
+// Rojo: Iniciado / Urgente
+// Amarillo: En Proceso
+// Verde: Listo / Completado
 // ====================================================================
 
-export const ESTADOS_VALIDOS = ['Pendiente', 'En Proceso', 'Entregado', 'Verificado'];
+export const ESTADOS_VALIDOS = [
+  'Iniciado',
+  'Pendiente',
+  'En Proceso',
+  'Listo',
+  'Entregado',
+  'Verificado'
+];
 
 export const TRANSICIONES_PERMITIDAS = {
-  'Pendiente': ['En Proceso'],
-  'En Proceso': ['Entregado', 'Pendiente'],
-  'Entregado': ['Verificado', 'En Proceso'],
-  'Verificado': []
+  'Iniciado': ['En Proceso', 'Listo'],
+  'Pendiente': ['En Proceso', 'Listo'],
+  'En Proceso': ['Listo', 'Iniciado', 'Pendiente'],
+  'Listo': ['En Proceso', 'Iniciado'],
+  'Entregado': ['Verificado', 'Listo', 'En Proceso'],
+  'Verificado': ['En Proceso']
 };
 
 export const SLA_MAX_MS = 1200;

@@ -27,17 +27,23 @@ export class TablerosController {
 
   static async crear(req, res, next) {
     try {
-      const { nombre } = req.body;
+      const { nombre, descripcion, fecha_reunion } = req.body;
       if (!nombre || !nombre.trim()) {
         return res.status(400).json({ error: 'El nombre de la minuta es obligatorio' });
       }
       const usuarioId = req.usuario.id;
-      const nuevoTablero = await TablerosService.crear({ nombre: nombre.trim(), usuarioId });
+      const nuevoTablero = await TablerosService.crear({
+        nombre: nombre.trim(),
+        descripcion: descripcion || '',
+        fecha_reunion: fecha_reunion || null,
+        usuarioId
+      });
       return res.status(201).json(nuevoTablero);
     } catch (err) {
       next(err);
     }
   }
+
 
   static async eliminar(req, res, next) {
     try {

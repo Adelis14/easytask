@@ -1,0 +1,129 @@
+================================================================================
+GUÍA Y GLOSARIO TÉCNICO DE ARQUITECTURA - EASYTASK
+Explicación de Conceptos y Términos Técnicos del Sistema
+================================================================================
+
+Este documento detalla y explica de forma clara y accesible cada uno de los
+términos técnicos que formaban parte de la configuración y arquitectura del
+proyecto, su utilidad y cómo impactan en la experiencia del usuario y del negocio.
+
+--------------------------------------------------------------------------------
+1. SLA (SERVICE LEVEL AGREEMENT / ACUERDO DE NIVEL DE SERVICIO)
+--------------------------------------------------------------------------------
+¿Qué es?
+En informática y negocios, un SLA es un compromiso formal entre quien provee un
+servicio y quien lo utiliza, estableciendo parámetros medibles de calidad,
+disponibilidad y tiempo de respuesta.
+
+¿Cómo estaba configurado en el sistema?
+- En el backend antiguo existía la variable `SLA_LIMIT_MS=1200` (1.2 segundos).
+- Esto significaba que cualquier consulta a la base de datos o petición del usuario
+  debía procesarse y responderse en menos de 1.2 segundos para considerarse dentro
+  de los límites aceptables.
+- En el negocio: Representa el tiempo límite de entrega acordado para que una tarea
+  o compromiso pase a considerarse en estado "Crítico" o vencido.
+
+--------------------------------------------------------------------------------
+2. SINGLE PAGE APPLICATION (SPA / APLICACIÓN DE PÁGINA ÚNICA)
+--------------------------------------------------------------------------------
+¿Qué es?
+Es una arquitectura de desarrollo web (usada por librerías modernas como React)
+donde la aplicación carga un solo documento HTML inicial y luego actualiza
+dinámicamente el contenido visual sin recargar toda la ventana del navegador.
+
+¿Por qué saturaba el sistema anteriormente y cómo se solucionó?
+- Anteriormente: Todo el sistema (login, tareas, reuniones, minutas, usuarios y
+  proyectos) estaba concentrado en un único archivo monstruoso (`DashboardPage.jsx`
+  de más de 2000 líneas). Eso provocaba que las pantallas se cruzaran, que
+  Compromisos y Dashboard fueran la misma vista y que el menú se sintiera confuso.
+- Ahora: Mantiene los beneficios de una SPA (navegación instantánea y fluida sin
+  recargas molestas), pero mediante un "Enrutador" (`react-router-dom`), separando
+  cada sección en páginas limpias, modulares e independientes (`/`, `/compromisos`,
+  `/reuniones`, `/minutas`, `/usuarios`, `/proyectos`).
+
+--------------------------------------------------------------------------------
+3. SISTEMA DE SEMÁFOROS CROMÁTICOS (ROJO, AMARILLO, VERDE)
+--------------------------------------------------------------------------------
+¿Qué es?
+Es una metodología visual e intuitiva de priorización y gestión de flujo:
+- 🔴 ROJO (Iniciado / Urgente): Tareas recién abiertas, acuerdos formalizados
+  pendientes de arranque o que requieren atención inmediata.
+- 🟡 AMARILLO (En Proceso): Tareas con trabajo activo y avances en desarrollo.
+- 🟢 VERDE (Listo / Completado): Tareas terminadas, verificadas y aprobadas.
+
+Beneficio:
+Permite a cualquier miembro o directivo entender el estado de salud de los
+proyectos en un segundo, sin necesidad de leer reportes complejos.
+
+--------------------------------------------------------------------------------
+4. KANBAN (TABLERO DE FLUJO DE TRABAJO)
+--------------------------------------------------------------------------------
+¿Qué es?
+Método visual de gestión de tareas originado en Japón (Toyota) que organiza el
+trabajo en columnas correspondientes a las etapas de un proceso. Las tarjetas se
+mueven de izquierda a derecha a medida que progresan hacia su conclusión.
+
+En EasyTask:
+El tablero presenta las 3 columnas de semáforo con tarjetas interactivas,
+subtareas (checklist) y cambio de estado con un solo clic.
+
+--------------------------------------------------------------------------------
+5. ORM (OBJECT-RELATIONAL MAPPING) & SEQUELIZE
+--------------------------------------------------------------------------------
+¿Qué es?
+Un ORM es un software que actúa como traductor entre el código JavaScript de la
+aplicación y la base de datos relacional. En lugar de escribir consultas manuales
+en lenguaje SQL puro (que pueden romperse fácilmente si falta una coma o una tabla),
+se definen "Modelos" de datos en JavaScript.
+
+¿Por qué se incorporó Sequelize?
+- Antes: El servidor hacía consultas SQL manuales `SELECT * FROM usuarios` que
+  arrojaban error porque la tabla no existía en la base de datos.
+- Ahora con Sequelize: Al arrancar el servidor (`sequelize.sync`), el ORM revisa
+  la base de datos y crea automáticamente todas las tablas si no existen,
+  garantizando que el sistema funcione solo y sin errores manuales.
+
+--------------------------------------------------------------------------------
+6. POOL DE CONEXIONES (CONNECTION POOLING)
+--------------------------------------------------------------------------------
+¿Qué es?
+Abrir y cerrar una conexión con una base de datos cada vez que un usuario hace clic
+consume tiempo y memoria del servidor. Un "Pool" mantiene un conjunto de
+conexiones abiertas y listas para ser reutilizadas al instante por múltiples
+usuarios en simultáneo.
+
+En la configuración:
+Parámetros como `DB_MAX_CONNECTIONS=20` o `DB_IDLE_TIMEOUT_MS=30000` aseguran
+que el sistema soporte a muchos usuarios concurrentes sin ponerse lento ni
+colapsar.
+
+--------------------------------------------------------------------------------
+7. JWT (JSON WEB TOKEN) & AUTENTICACIÓN
+--------------------------------------------------------------------------------
+¿Qué es?
+Es un estándar de seguridad para transmitir información de forma cifrada y
+verificable entre el navegador del usuario y el servidor.
+
+¿Cómo funciona en EasyTask?
+Cuando el usuario inicia sesión con su correo y contraseña, el servidor genera
+una credencial digital firmada (Token). El navegador guarda esta credencial y la
+adjunta automáticamente en cada petición, permitiendo saber quién es el usuario
+logueado y protegiendo el acceso para que personas no autorizadas no puedan entrar.
+
+--------------------------------------------------------------------------------
+8. AUDITORÍA INMUTABLE (HISTORIAL / AUDIT TRAIL)
+--------------------------------------------------------------------------------
+¿Qué es?
+Un registro cronológico inmutable (que no se puede borrar ni alterar) que guarda
+quién cambió el estado de una tarea, a qué fecha y hora, y cuál fue el estado
+anterior y nuevo.
+
+En EasyTask:
+Cada vez que una tarjeta cambia de semáforo (por ejemplo de Rojo a Amarillo o de
+Amarillo a Verde), el sistema guarda un registro de auditoría consultable en el
+botón de historial de la tarjeta.
+
+================================================================================
+Fin del documento.
+EasyTask - Sistema Integral de Tareas, Acuerdos y Seguimiento
+================================================================================

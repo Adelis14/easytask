@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guía de Estudio - Proyecto EasyTask</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 9pt;
+        color: #64748b;
+      }
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      line-height: 1.5;
+      font-size: 10pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cover {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 85vh;
+      padding: 40px 20px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .logo-icon {
+      width: 52px;
+      height: 52px;
+      background: #2563eb;
+      color: #ffffff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 900;
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25);
+    }
+
+    .logo-title {
+      font-size: 32pt;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+
+    .logo-title span {
+      color: #2563eb;
+    }
+
+    .cover-title {
+      font-size: 26pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-top: 15px;
+      margin-bottom: 12px;
+    }
+
+    .cover-subtitle {
+      font-size: 13pt;
+      color: #475569;
+      margin-bottom: 30px;
+      font-weight: 400;
+      max-width: 650px;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      font-size: 9.5pt;
+    }
+
+    .cover-meta-item strong {
+      display: block;
+      color: #64748b;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+      page-break-inside: avoid;
+    }
+
+    h2 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 6px;
+      margin-top: 24px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    .color-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .color-card.red {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+    .color-card.yellow {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .color-card.green {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .color-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .dot-red { background: #ef4444; box-shadow: 0 0 0 3px #fee2e2; }
+    .dot-yellow { background: #f59e0b; box-shadow: 0 0 0 3px #fef3c7; }
+    .dot-green { background: #10b981; box-shadow: 0 0 0 3px #dcfce7; }
+
+    .color-card-content h4 {
+      margin: 0 0 3px 0;
+      font-size: 10.5pt;
+      font-weight: 700;
+    }
+
+    .color-card.red h4 { color: #b91c1c; }
+    .color-card.yellow h4 { color: #b45309; }
+    .color-card.green h4 { color: #15803d; }
+
+    .color-card-content p {
+      margin: 0;
+      font-size: 9pt;
+      color: #475569;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 9pt;
+    }
+
+    th, td {
+      padding: 9px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-green { background: #dcfce7; color: #166534; }
+
+    .module-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #ffffff;
+    }
+
+    .module-box strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 3px;
+      font-size: 10pt;
+    }
+
+    .highlight-box {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 16px 0;
+      font-size: 9.5pt;
+    }
+
+    .qa-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .qa-q {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+      font-size: 9.5pt;
+    }
+
+    .qa-a {
+      color: #334155;
+      font-size: 9pt;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA -->
+  <div class="cover">
+    <div class="logo-badge">
+      <div class="logo-icon">&#10003;</div>
+      <h1 class="logo-title">Easy<span>Task</span></h1>
+    </div>
+    <div class="cover-title">Guía de Estudio y Explicación Integral del Proyecto</div>
+    <div class="cover-subtitle">
+      Manual completo de arquitectura, flujo visual de tareas, módulos funcionales y glosario conceptual para defensa y presentación.
+    </div>
+    
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <strong>Área de Aplicación</strong>
+        Gestión de Acuerdos, Tareas y Minutas
+      </div>
+      <div class="cover-meta-item">
+        <strong>Metodología Visual</strong>
+        Clasificación Cromática (Rojo, Amarillo, Verde)
+      </div>
+      <div class="cover-meta-item">
+        <strong>Arquitectura Tecnológica</strong>
+        React 19 + Node Express + Sequelize + PostgreSQL
+      </div>
+      <div class="cover-meta-item">
+        <strong>Versión del Documento</strong>
+        1.0 - Guía Oficial de Estudio
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: INTRODUCCIÓN Y PROPÓSITO -->
+  <div class="section">
+    <h2>1. Introducción y Propósito del Proyecto</h2>
+    <p>
+      <strong>EasyTask</strong> es un sistema integral de gestión y seguimiento diseñado para transformar los acuerdos discutidos en reuniones y sesiones de trabajo en tareas concretas, medibles y auditables.
+    </p>
+    <div class="highlight-box">
+      <strong>Problema central que resuelve:</strong> En la mayoría de las organizaciones, las reuniones concluyen con acuerdos informales que se olvidan o quedan archivados en notas estáticas ("muerte por reunión"). EasyTask convierte cada acta formal (minuta) en un flujo visual interactivo con responsables, fechas de entrega y estado de avance en tiempo real.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: EL FLUJO VISUAL CROMÁTICO -->
+  <div class="section">
+    <h2>2. El Flujo Visual de Tareas</h2>
+    <p>
+      El sistema se fundamenta en un modelo de <strong>clasificación cromática intuitiva</strong> que permite a cualquier usuario o directivo conocer la situación del equipo en un segundo:
+    </p>
+
+    <div class="color-card red">
+      <div class="color-dot dot-red"></div>
+      <div class="color-card-content">
+        <h4>🔴 Rojo (Iniciado / Urgente)</h4>
+        <p>Identifica tareas recién pactadas, acuerdos pendientes de arranque o tareas que requieren atención inmediata y prioritaria.</p>
+      </div>
+    </div>
+
+    <div class="color-card yellow">
+      <div class="color-dot dot-yellow"></div>
+      <div class="color-card-content">
+        <h4>🟡 Amarillo (En Proceso)</h4>
+        <p>Identifica tareas con trabajo activo en ejecución y avances constantes en curso.</p>
+      </div>
+    </div>
+
+    <div class="color-card green">
+      <div class="color-dot dot-green"></div>
+      <div class="color-card-content">
+        <h4>🟢 Verde (Listo / Completado)</h4>
+        <p>Identifica tareas concluidas con éxito, validadas y entregadas satisfactoriamente.</p>
+      </div>
+    </div>
+
+    <h3>Interacción en las Tarjetas de Tarea:</h3>
+    <p>
+      Cada tarjeta dentro del tablero cuenta con un <strong>círculo indicador del color activo</strong> junto a un <strong>selector desplegable (select)</strong>. El usuario puede cambiar directamente el color de la tarea, lo que actualiza su estado en la base de datos de manera instantánea y transparente.
+    </p>
+  </div>
+
+  <!-- SECCIÓN 3: PÁGINAS Y MÓDULOS -->
+  <div class="section">
+    <h2>3. Módulos y Navegación del Sistema</h2>
+    <p>
+      La aplicación está dividida en páginas desacopladas mediante <strong>React Router</strong>, garantizando una navegación rápida, ordenada y sin recargas de pantalla:
+    </p>
+
+    <div class="module-box">
+      <strong>1. Dashboard General (<code>/</code>)</strong>
+      Panel de control con métricas clave: total de tareas, conteo de tareas en rojo, amarillo y verde, tasa global de conclusión y accesos directos a todos los módulos.
+    </div>
+
+    <div class="module-box">
+      <strong>2. Tablero de Tareas (<code>/compromisos</code>)</strong>
+      Vista de flujo visual en 3 columnas principales (Rojo, Amarillo, Verde). Incluye filtros rápidos por color, barra de búsqueda por responsable o título, puntos de control (subtareas) y modal para pactar nuevas tareas.
+    </div>
+
+    <div class="module-box">
+      <strong>3. Agenda de Reuniones (<code>/reuniones</code>)</strong>
+      Planificación y calendario de sesiones de trabajo con fecha, hora, modalidad (videoconferencia o presencial) y enlace directo a su acta de acuerdos.
+    </div>
+
+    <div class="module-box">
+      <strong>4. Gestión de Minutas (<code>/minutas</code>)</strong>
+      Repositorio formal de actas donde se documentan los acuerdos formalizados. Permite crear nuevas minutas y vincularlas directamente a las tareas del tablero.
+    </div>
+
+    <div class="module-box">
+      <strong>5. Directorio de Usuarios (<code>/usuarios</code>)</strong>
+      Control del equipo de trabajo. Muestra el número de tareas asignadas a cada colaborador, tareas listas, tareas en rojo y su tasa individual de resolución. Además, incluye la función para <strong>crear nuevos usuarios dentro del sistema</strong> estando autenticado.
+    </div>
+
+    <div class="module-box">
+      <strong>6. Portafolio de Proyectos (<code>/proyectos</code>)</strong>
+      Iniciativas estratégicas a largo plazo que agrupan y articulan múltiples minutas y tareas del equipo.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: GLOSARIO DE CONCEPTOS TÉCNICOS -->
+  <div class="section">
+    <h2>4. Glosario y Conceptos Técnicos del Sistema</h2>
+    <p>
+      A continuación se explican los términos técnicos utilizados en la arquitectura para facilitar su comprensión y defensa:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Término</th>
+          <th style="width: 35%;">Definición Técnica</th>
+          <th style="width: 40%;">Aplicación Práctica en EasyTask</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SLA (Service Level Agreement)</strong></td>
+          <td>Acuerdo de Nivel de Servicio. Estándar de calidad y límite de tiempo acordado para responder o entregar una tarea.</td>
+          <td>El backend garantiza tiempos de respuesta de consulta ultrarrápidos y el sistema detecta cuándo una tarea requiere atención prioritaria antes de su fecha límite.</td>
+        </tr>
+        <tr>
+          <td><strong>SPA (Single Page Application)</strong></td>
+          <td>Aplicación de Página Única. La aplicación web no recarga la página completa al hacer clic, sino que refresca los componentes al instante.</td>
+          <td>El usuario disfruta de una experiencia fluida e inmediata al navegar entre el Dashboard, Tareas, Minutas y Usuarios sin parpadeos blancos.</td>
+        </tr>
+        <tr>
+          <td><strong>Kanban</strong></td>
+          <td>Metodología visual japonesa de gestión de trabajo organizada en columnas secuenciales de progreso.</td>
+          <td>Estructura el tablero de tareas en columnas de flujo (Rojo, Amarillo y Verde) para identificar cuellos de botella de inmediato.</td>
+        </tr>
+        <tr>
+          <td><strong>ORM & Sequelize</strong></td>
+          <td>Mapeador Objeto-Relacional que traduce objetos en JavaScript a sentencias SQL seguras en la base de datos.</td>
+          <td>Al encender el servidor, Sequelize revisa la base de datos y <strong>crea automáticamente todas las tablas necesarias</strong> sin necesidad de scripts manuales.</td>
+        </tr>
+        <tr>
+          <td><strong>Pool de Conexiones</strong></td>
+          <td>Gestor que mantiene conexiones abiertas listas para ser reutilizadas por múltiples usuarios a la vez.</td>
+          <td>Permite que varios directivos y colaboradores usen el sistema concurrentemente sin que la aplicación se ponga lenta.</td>
+        </tr>
+        <tr>
+          <td><strong>JWT (JSON Web Token)</strong></td>
+          <td>Credencial digital cifrada y firmada que valida la identidad del usuario en cada solicitud.</td>
+          <td>Protege las rutas privadas del sistema para que personas no autorizadas no puedan acceder a la información de las minutas.</td>
+        </tr>
+        <tr>
+          <td><strong>Auditoría Inmutable (Audit Trail)</strong></td>
+          <td>Registro histórico inalterable de cada cambio realizado sobre un registro.</td>
+          <td>Guarda quién cambió el estado de una tarea, la fecha y hora exacta, accesible desde el botón de historial en cada tarjeta.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECCIÓN 5: PREGUNTAS FRECUENTES -->
+  <div class="section">
+    <h2>5. Preguntas Clave para Defensa y Presentación</h2>
+
+    <div class="qa-box">
+      <div class="qa-q">¿Cómo se garantiza que la base de datos se configure sola sin intervención manual?</div>
+      <p class="qa-a">Gracias al ORM Sequelize y su instrucción de arranque <code>sequelize.sync({ alter: true })</code> en el archivo principal del servidor. Al iniciar el proyecto, Sequelize verifica si existen las tablas de usuarios, tableros, tareas e historial; si no existen, las crea automáticamente con sus tipos de datos y relaciones.</p>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-q">¿Cómo se resolvió la saturación de pantallas del código anterior?</div>
+      <p class="qa-a">El frontend anterior tenía 2074 líneas en un solo archivo monolítico, lo que provocaba que el menú mezclara secciones. Se aplicó una arquitectura desacoplada con <code>react-router-dom</code> y un componente de navegación compartido (Layout), separando cada funcionalidad en su propia vista.</p>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-q">¿Cómo interactúa el usuario con los colores de las tareas?</div>
+      <p class="qa-a">Cada tarjeta presenta un indicador circular del color actual y un menú desplegable (select) donde el usuario puede alternar con un solo clic entre Rojo (Iniciado), Amarillo (En Proceso) o Verde (Listo).</p>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-q">¿Se pueden registrar usuarios tanto desde afuera como estando adentro?</div>
+      <p class="qa-a">Sí. En la pantalla de inicio de sesión existe la opción "Crear Cuenta", y dentro del sistema, en la página de Usuarios, el administrador dispone del botón "+ Nuevo Usuario" para registrar colaboradores directamente sin cerrar su sesión.</p>
+    </div>
+  </div>
+
+</body>
+</html>

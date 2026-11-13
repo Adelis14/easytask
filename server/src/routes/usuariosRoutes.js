@@ -6,5 +6,6 @@ const router = Router();
 
 // Directorio de usuarios autenticado
 router.get('/', authMiddleware, UsuariosController.listar);
+router.post('/', authMiddleware, UsuariosController.crear);
 
 export default router;
